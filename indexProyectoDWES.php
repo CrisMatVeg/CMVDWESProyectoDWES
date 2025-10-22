@@ -6,93 +6,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Cristian Mateos Vega</title>
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="./webroot/css/estilos.css">
+        <link rel="stylesheet" href="./webroot/css/fonts.css">
         <style>
-
-            @font-face {
-                font-family: 'MiFuente';
-                src: url('./webroot/fonts/Audiowide-Regular.ttf') format('woff2'),
-                    url('./webroot/fonts/Audiowide-Regular.ttf') format('woff');
-                font-weight: normal;
-                font-style: normal;
-            }
-
-            * {
-                font-family: "MiFuente";
-                font-weight: 200;
-            }
-
-            body {
-                margin: 0;
-                display: flex;
-                flex-direction: column;
-                min-height: 100vh;
-            }
-
-            #videofondo {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-                z-index: -1;
-            }
-
-            span {
-                color: rgb(255, 255, 255);
-                display: block;
-                padding-top: 15px;
-            }
-
-            a {
-                text-decoration: underline;
-                color: #fff;
-            }
-
-            #iconos {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-
-            #iconos * {
-                margin: 10px;
-            }
-
-            header {
-                position: fixed;
-                display: flex;
-                justify-content: space-around;
-                align-items: center;
-                top: 0;
-                left: 0;
-                right: 0;
-                background: #52213d60;
-                color: #fff;
-                text-align: center;
-                padding: 15px;
-                z-index: 1000;
-                backdrop-filter: blur(7px);
-                box-shadow: 0px 0px 30px rgba(227,228,237,0.37);
-            }
-
-            footer {
-                position: fixed;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                bottom: 0;
-                left: 0;
-                right: 0;
-                background: #52213d60;
-                color: #fff;
-                text-align: center;
-                padding: 15px;
-                z-index: 1000;
-                backdrop-filter: blur(7px);
-                box-shadow: 0px 0px 20px rgba(227,228,237,0.37);
-            }
-
             main {
                 flex: 1;
                 margin-top: 70px;
@@ -112,6 +28,7 @@
             .card {
                 position: relative;
                 overflow: hidden;
+                border: 5px solid #020202;
                 border-radius: 7px;
                 cursor: pointer;
                 transition: transform 0.3s ease;
@@ -121,79 +38,20 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                color: white;
+                color: #020202;
                 font-weight: bold;
                 font-size: 1.2rem;
                 text-align: center;
                 z-index: 0;
                 padding: 15px;
+                background: #ffffff;
                 margin: 10px;
                 width: 80%;
-                background: #111111a9;
-            }
-
-            .overlay {
-                position: absolute;
-                inset: 0;
-                opacity: 0;
-                transition: opacity 0.3s ease;
-                border-radius: 7px;
-                z-index: 1;
-                background: #111111a9;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                overflow: hidden;
-            }
-
-            .card span {
-                position: relative;
-                z-index: 2;
-            }
-
-            a span:hover {
-                transform: scale(1.05);
-            }
-
-            .card:hover {
-                box-shadow: 0 0 20px rgba(183, 0, 255, 0.5);
-            }
-
-
-            .card:hover .overlay {
-                opacity: 1;
-            }
-
-            .card::before {
-                content: '';
-                position: absolute;
-                top: -50%;
-                left: -50%;
-                width: 200%;
-                height: 200%;
-                transform: rotate(-45deg);
-                transition: all 0.5s ease;
-                opacity: 0;
-            }
-
-            .card::before {
-                background: linear-gradient(0deg,
-                    transparent,
-                    transparent 30%,
-                    rgba(204, 0, 255, 0.3));
-            }
-
-            .card:hover::before {
-                opacity: 1;
-                transform: rotate(-45deg) translateY(100%);
             }
         </style>
     </head>
 
     <body>
-        <video autoplay muted loop id="videofondo">
-            <source src="./webroot/images/videofondo.mp4" type="video/mp4">
-        </video>
         <header>
             <h2>DAW2</h2>
             <h1>Desarrollo Web Entorno Servidor</h1>
