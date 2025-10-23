@@ -24,13 +24,15 @@
                 overflow: hidden;
                 padding: 10px;
             }
+            a{
+                text-decoration:2px underline #020202;
+            }
 
             .card {
                 position: relative;
                 overflow: hidden;
                 border: 5px solid #020202;
                 border-radius: 7px;
-                cursor: pointer;
                 transition: transform 0.3s ease;
                 transform-origin: center;
                 background-size: cover;
@@ -72,8 +74,8 @@
                 <div class="overlay"></div>
                 <span>
                     <span>UT2: INSTALACIÓN, CONFIGURACIÓN Y DOCUMENTACIÓN DEL ENTORNO DE DESARROLLO Y DEL ENTORNO DE EXPLOTACIÓN</span>
-                    <a href="./doc/EstudioTema2.html" target="_blank">
-                        <span>EstudioTema2.html</span>
+                    <a href="https://github.com/CrisMatVeg/CMVDWESProyectoDWES/blob/master/README.md">
+                        <span>EstudioTema2</span>
                     </a>
                 </span>
             </div>
