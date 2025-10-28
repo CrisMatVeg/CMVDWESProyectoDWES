@@ -120,7 +120,7 @@
         </main>
 
         <footer>
-            <p>© 2025-26 IES Los Sauces. Todos los derechos reservados.</p>
+            <p>© 2025-26 IES Los Sauces. Todos los derechos reservados. Cristian Mateos Vega</p>
             <div id="iconos">
                 <a href="https://github.com/CrisMatVeg" target="_blank" title="Github"><i
                         class="fa-brands fa-github fa-2xl"></i></a>
