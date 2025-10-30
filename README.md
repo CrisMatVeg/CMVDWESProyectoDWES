@@ -18,7 +18,7 @@
         - [**Configuración fecha y hora**](#configuración-fecha-y-hora)
         - [**Cuentas administradoras**](#cuentas-administradoras)
         - [**Habilitar cortafuegos**](#habilitar-cortafuegos)
-      - [1.1.2 Instalación del servidor web](#112-instalación-del-servidor-web)
+      - [1.1.2 Instalación del servidor web Apache HTTP](#112-instalación-del-servidor-web-apache-http)
         - [Instalación](#instalación)
         - [Verficación del servicio](#verficación-del-servicio)
         - [Virtual Hosts](#virtual-hosts)
@@ -30,7 +30,7 @@
         - [Ficheros .log de PHP](#ficheros-log-de-php)
       - [1.1.4 MariaDB](#114-mariadb)
       - [1.1.5 XDebug](#115-xdebug)
-      - [1.1.6 Servidor web seguro (HTTPS)](#116-servidor-web-seguro-https)
+      - [1.1.6 Servidor web seguro Apache HTTPS](#116-servidor-web-seguro-apache-https)
       - [1.1.7 DNS](#117-dns)
       - [1.1.8 SFTP](#118-sftp)
       - [1.1.9 Apache Tomcat](#119-apache-tomcat)
@@ -71,14 +71,16 @@ hostname
 #Se cambia con:
 1. sudo hostnamectl set-hostname "nombre"
 2. sudo nano /etc/hosts y cambiando la linea donde pone 127.0.1.1
-
 ```
+![Alt](webroot/images/hostname1.png)
+
 > **Memoria RAM**: 2G\
 > **Particiones**: 150G(/) y resto (/var)\
 ```bash
 #Se ve con:
 df -h
 ```
+![Alt](webroot/images/df1.png)
 > **Configuración de red interface**: enp0s3\
 > **Dirección IP** :10.199.8.248/22\
 > **GW**: 10.199.8.1/22\
@@ -161,7 +163,7 @@ sudo ufw status [numbered]
 #Para eliminar algún puerto
 sudo ufw delete "nº de puerto (ver con numbered)"
 ``` 
-#### 1.1.2 Instalación del servidor web
+#### 1.1.2 Instalación del servidor web Apache HTTP
 
 ##### Instalación
 ```bash
@@ -294,9 +296,22 @@ sudo mysql_secure_installation
 ```bash
 #Instalar
 sudo apt install php8.3-xdebug
+
+#Entrar en /etc/php/8.3/fpm/conf.d/20-xdebug.ini y añadir
+xdebug.mode=develop,debug
+xdebug.start_with_request=yes
+xdebug.client_host=127.0.0.1
+xdebug.client_port=9003
+xdebug.log=/tmp/xdebug.log
+xdebug.log_level=7
+xdebug.idekey="netbeans-xdebug"
+xdebug.discover_client_host=1
+
+#Reiniciar servidor
+sudo systemctl restart php8.3-fpm
 ```
 
-#### 1.1.6 Servidor web seguro (HTTPS)
+#### 1.1.6 Servidor web seguro Apache HTTPS
 ![Alt](webroot/images/https0.png)
 ```bash
 #Para crear certificado digital:
