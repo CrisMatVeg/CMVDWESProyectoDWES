@@ -7,10 +7,10 @@
 | CIBERSEGURIDAD
 | DWES Tema 2. INSTALACIÓN, CONFIGURACIÓN Y DOCUMENTACIÓN DE ENTORNO DE DESARROLLO Y DEL ENTORNO DE EXPLOTACIÓN |
 
-[**Servidor de Desarrollo**](./READMEUS.md)\
-[**Windows 11**](./READMEW11.md)\
-[**Git**](./READMEGIT.md)\
-[**Entorno de Explotación**](./READMEEE.md)
+### 1.2 Windows 11
+#### 1.2.1 **Configuración inicial**
+##### **Nombre y configuración de red**
+##### **Cuentas administradoras**
 ---
 
 > **Cristian Mateos Vega**  
