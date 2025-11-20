@@ -11,12 +11,12 @@
         <style>
             main {
                 flex: 1;
-                margin-top: 70px;
+                margin-top: 40px;
                 margin-bottom: 70px;
                 display: grid;
                 grid-template-columns: 1fr 1fr;
-                column-gap: 10px;
-                row-gap: 10px;
+                column-gap: 5px;
+                row-gap: 5px;
                 max-height: 100vh;
                 height: 100vh;
                 justify-items: center;
@@ -102,7 +102,7 @@
                     <a href="../CMVDWESProyectoTema5/indexProyectoTema5.php">
                         <span>ProyectoTema5</span>
                     </a>
-                    <a href="../CMVDWESProyectoTema5/indexProyectoLoginLogoff.php">
+                    <a href="../CMVDWESLoginLogoffTema5/indexLoginLogoff.php">
                         <span>LoginLogoffTema5</span>
                     </a>
                 </span>
