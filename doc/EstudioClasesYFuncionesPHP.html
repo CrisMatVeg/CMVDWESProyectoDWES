@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Estudio de Funciones y Clases Complejas en PHP</title>
+        <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+        
+    </head>
+    <body class="vscode-body vscode-light">
+        <h1 id="estudio-de-funciones-y-clases-complejas-en-php">Estudio de Funciones y Clases Complejas en PHP</h1>
+<h2 id="funciones">Funciones</h2>
+<h3 id="funciones-de-validación-y-depuración">Funciones de Validación y Depuración</h3>
+<ul>
+<li>
+<p><strong><code>is_null()</code></strong></p>
+<ul>
+<li><strong>Entorno de uso:</strong> Validación de variables</li>
+<li><strong>Utilidad:</strong> Verifica si una variable es <code>null</code></li>
+<li><strong>Ejemplo:</strong><pre><code class="language-php"><span class="hljs-variable">$var</span> = <span class="hljs-literal">null</span>;
+<span class="hljs-keyword">if</span> (<span class="hljs-title function_ invoke__">is_null</span>(<span class="hljs-variable">$var</span>)) {
+    <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;La variable es null&quot;</span>;
+}
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p><strong><code>empty()</code></strong></p>
+<ul>
+<li><strong>Entorno de uso:</strong> Validación de formularios o datos</li>
+<li><strong>Utilidad:</strong> Comprueba si una variable está vacía (<code>&quot;&quot;</code>, <code>0</code>, <code>null</code>, <code>false</code>, etc.)</li>
+<li><strong>Ejemplo:</strong><pre><code class="language-php"><span class="hljs-variable">$input</span> = <span class="hljs-string">&quot;&quot;</span>;
+<span class="hljs-keyword">if</span> (<span class="hljs-keyword">empty</span>(<span class="hljs-variable">$input</span>)) {
+    <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;Campo vacío&quot;</span>;
+}
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p><strong><code>isset()</code></strong></p>
+<ul>
+<li><strong>Entorno de uso:</strong> Validación de existencia de variables</li>
+<li><strong>Utilidad:</strong> Verifica si una variable está definida y no es <code>null</code></li>
+<li><strong>Ejemplo:</strong><pre><code class="language-php"><span class="hljs-keyword">if</span> (<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$_REQUEST</span>[<span class="hljs-string">&#x27;nombre&#x27;</span>])) {
+    <span class="hljs-keyword">echo</span> <span class="hljs-variable">$_REQUEST</span>[<span class="hljs-string">&#x27;nombre&#x27;</span>];
+}
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p><strong><code>var_dump()</code></strong></p>
+<ul>
+<li><strong>Entorno de uso:</strong> Depuración</li>
+<li><strong>Utilidad:</strong> Muestra información detallada de una variable</li>
+<li><strong>Ejemplo:</strong><pre><code class="language-php"><span class="hljs-title function_ invoke__">var_dump</span>(<span class="hljs-variable">$array</span>);
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="funciones-de-fecha-y-texto">Funciones de Fecha y Texto</h3>
+<ul>
+<li>
+<p><strong><code>date()</code></strong></p>
+<ul>
+<li><strong>Entorno de uso:</strong> Manejo de fechas</li>
+<li><strong>Utilidad:</strong> Formatea la fecha actual</li>
+<li><strong>Ejemplo:</strong><pre><code class="language-php"><span class="hljs-keyword">echo</span> <span class="hljs-title function_ invoke__">date</span>(<span class="hljs-string">&quot;Y-m-d H:i:s&quot;</span>);
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p><strong><code>nl2br()</code></strong></p>
+<ul>
+<li><strong>Entorno de uso:</strong> Salida HTML</li>
+<li><strong>Utilidad:</strong> Convierte saltos de línea (<code>\n</code>) en etiquetas <code>&lt;br&gt;</code></li>
+<li><strong>Ejemplo:</strong><pre><code class="language-php"><span class="hljs-keyword">echo</span> <span class="hljs-title function_ invoke__">nl2br</span>(<span class="hljs-string">&quot;Línea 1\nLínea 2&quot;</span>);
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p><strong><code>htmlspecialchars()</code></strong></p>
+<ul>
+<li><strong>Entorno de uso:</strong> Seguridad en formularios</li>
+<li><strong>Utilidad:</strong> Convierte caracteres especiales en HTML seguro. Evita ataques XSS</li>
+<li><strong>Ejemplo:</strong><pre><code class="language-php"><span class="hljs-keyword">echo</span> <span class="hljs-title function_ invoke__">htmlspecialchars</span>(<span class="hljs-string">&quot;&lt;b&gt;Hola&lt;/b&gt;&quot;</span>);
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="funciones-de-estructuras-y-datos">Funciones de Estructuras y Datos</h3>
+<ul>
+<li>
+<p><strong><code>list()</code></strong></p>
+<ul>
+<li><strong>Entorno de uso:</strong> Asignación múltiple</li>
+<li><strong>Utilidad:</strong> Asigna múltiples variables desde un array</li>
+<li><strong>Ejemplo:</strong><pre><code class="language-php"><span class="hljs-keyword">list</span>(<span class="hljs-variable">$a</span>, <span class="hljs-variable">$b</span>) = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>];
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p><strong><code>json_encode()</code> / <code>json_decode()</code></strong></p>
+<ul>
+<li><strong>Entorno de uso:</strong> Intercambio de datos (APIs)</li>
+<li><strong>Utilidad:</strong> Convierte arrays/objetos en JSON.</li>
+<li><strong>Ejemplo:</strong><pre><code class="language-php"><span class="hljs-variable">$json</span> = <span class="hljs-title function_ invoke__">json_encode</span>([<span class="hljs-string">&quot;nombre&quot;</span> =&gt; <span class="hljs-string">&quot;Ana&quot;</span>]);
+<span class="hljs-variable">$array</span> = <span class="hljs-title function_ invoke__">json_decode</span>(<span class="hljs-variable">$json</span>, <span class="hljs-literal">true</span>);
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="funciones-de-archivos-y-cabeceras">Funciones de Archivos y Cabeceras</h3>
+<ul>
+<li>
+<p><strong><code>file_put_contents()</code></strong></p>
+<ul>
+<li><strong>Entorno de uso:</strong> Escritura de archivos</li>
+<li><strong>Utilidad:</strong> Escribe contenido en un archivo</li>
+<li><strong>Ejemplo:</strong><pre><code class="language-php"><span class="hljs-title function_ invoke__">file_put_contents</span>(<span class="hljs-string">&quot;log.txt&quot;</span>, <span class="hljs-string">&quot;Registro de actividad&quot;</span>);
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p><strong><code>basename()</code></strong></p>
+<ul>
+<li><strong>Entorno de uso:</strong> Manejo de rutas</li>
+<li><strong>Utilidad:</strong> Extrae el nombre del archivo de una ruta</li>
+<li><strong>Ejemplo:</strong><pre><code class="language-php"><span class="hljs-keyword">echo</span> <span class="hljs-title function_ invoke__">basename</span>(<span class="hljs-string">&quot;/ruta/archivo.txt&quot;</span>);
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p><strong><code>header()</code></strong></p>
+<ul>
+<li><strong>Entorno de uso:</strong> Manipulación de cabeceras HTTP</li>
+<li><strong>Utilidad:</strong> Modifica cabeceras HTTP</li>
+<li><strong>Ejemplo:</strong><pre><code class="language-php"><span class="hljs-title function_ invoke__">header</span>(<span class="hljs-string">&quot;Location: pagina.php&quot;</span>);
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="clases-php">Clases PHP</h2>
+<h3 id="almacenamiento-de-fechas-en-mysql">Almacenamiento de fechas en MySQL</h3>
+<p>MySQL proporciona varios tipos de datos para representar fechas:</p>
+<h4 id="date"><code>DATE</code></h4>
+<ul>
+<li>Guarda únicamente la fecha (año, mes, día).</li>
+<li>Formato: YYYY-MM-DD</li>
+<li>Rango: del año 1000 al 9999</li>
+<li>Usos típicos: cumpleaños, fechas de registros, vencimientos.</li>
+</ul>
+<h4 id="datetime"><code>DATETIME</code></h4>
+<ul>
+<li>Guarda fecha y hora.</li>
+<li>Formato: YYYY-MM-DD HH:MM:SS</li>
+<li>No depende de la zona horaria del servidor.</li>
+<li>Usos típicos: registros de eventos, logging, timestamps históricos.</li>
+</ul>
+<h4 id="timestamp"><code>TIMESTAMP</code></h4>
+<ul>
+<li>También guarda fecha y hora.</li>
+<li>Formato: igual a DATETIME.</li>
+<li>Sí depende de la zona horaria, convirtiendo valores al guardar y recuperar.</li>
+<li>Rango limitado: 1970 a 2038.</li>
+<li>Usos típicos: auditoría, última fecha de actualización, sincronización en sistemas distribuidos.</li>
+</ul>
+<h4 id="time"><code>TIME</code></h4>
+<ul>
+<li>Representa solo tiempo (horas, minutos y segundos).</li>
+<li>Usos: duración, intervalos, horas de apertura.</li>
+</ul>
+<h4 id="year"><code>YEAR</code></h4>
+<ul>
+<li>Almacena solo el año.</li>
+<li>Poco utilizado actualmente.</li>
+</ul>
+<hr>
+<h3 id="isset-vs-empty-vs-is_null">isset vs empty vs is_null</h3>
+<pre><code class="language-php"><span class="hljs-comment">// Source - https://stackoverflow.com/a</span>
+<span class="hljs-comment">// Posted by rjhdby, modified by community. See post &#x27;Timeline&#x27; for change history</span>
+<span class="hljs-comment">// Retrieved 2025-11-26, License - CC BY-SA 4.0</span>
+
+<span class="hljs-variable">$a</span> - variable con un valor distinto de <span class="hljs-title function_ invoke__">null</span> (e.g. <span class="hljs-literal">TRUE</span>)
+<span class="hljs-variable">$b</span> - variable con valor <span class="hljs-literal">null</span>. `<span class="hljs-variable">$b</span> = <span class="hljs-literal">null</span>;`
+<span class="hljs-variable">$c</span> - variable no declarada
+<span class="hljs-variable">$d</span> - variable con valor que devuelve <span class="hljs-title function_ invoke__">FALSE</span> (ej. <span class="hljs-keyword">string</span> vacío, <span class="hljs-literal">FALSE</span> o <span class="hljs-keyword">array</span> vacío)
+<span class="hljs-variable">$e</span> - variable declarada pero sin valor asignado
+<span class="hljs-variable">$a</span>-&gt;a - declarada, pero no asignada propiedad <span class="hljs-keyword">object</span>. (`<span class="hljs-keyword">public</span> <span class="hljs-variable">$a</span>;`)
+A::<span class="hljs-variable">$a</span> - declarada, pero no asignada propiedad <span class="hljs-built_in">static</span> <span class="hljs-keyword">class</span>.
+
+         |   <span class="hljs-variable">$a</span>  |   <span class="hljs-variable">$b</span>  |   <span class="hljs-variable">$c</span>  |   <span class="hljs-variable">$d</span>  |   <span class="hljs-variable">$e</span>  | <span class="hljs-variable">$a</span>-&gt;a | A::<span class="hljs-variable">$a</span> |
+---------+-------+-------+-------+-------+-------+-------+-------+
+<span class="hljs-title function_ invoke__">is_null</span>()| <span class="hljs-literal">FALSE</span> | <span class="hljs-literal">TRUE</span>  |<span class="hljs-literal">TRUE</span>*W | <span class="hljs-literal">FALSE</span> | <span class="hljs-literal">TRUE</span>*W| <span class="hljs-literal">TRUE</span>  | <span class="hljs-literal">TRUE</span>  |
+---------+-------+-------+-------+-------+-------+-------+-------+
+<span class="hljs-keyword">isset</span>()  | <span class="hljs-literal">TRUE</span>  | <span class="hljs-literal">FALSE</span> | <span class="hljs-literal">FALSE</span> | <span class="hljs-literal">TRUE</span>  | <span class="hljs-literal">FALSE</span> | <span class="hljs-literal">FALSE</span> | <span class="hljs-literal">FALSE</span> |
+---------+-------+-------+-------+-------+-------+-------+-------+
+<span class="hljs-keyword">empty</span>()  | <span class="hljs-literal">FALSE</span> | <span class="hljs-literal">TRUE</span>  | <span class="hljs-literal">TRUE</span>  | <span class="hljs-literal">TRUE</span>  | <span class="hljs-literal">TRUE</span>  | <span class="hljs-literal">TRUE</span>  | <span class="hljs-literal">TRUE</span>  |
+---------+-------+-------+-------+-------+-------+-------+-------+
+<span class="hljs-literal">null</span> === | <span class="hljs-literal">FALSE</span> | <span class="hljs-literal">TRUE</span>  |<span class="hljs-literal">TRUE</span>*W | <span class="hljs-literal">FALSE</span> | <span class="hljs-literal">TRUE</span>*W| <span class="hljs-literal">TRUE</span>  | <span class="hljs-literal">TRUE</span>  |
+---------+-------+-------+-------+-------+-------+-------+-------+
+<span class="hljs-literal">null</span> ==  | <span class="hljs-literal">FALSE</span> | <span class="hljs-literal">TRUE</span>  |<span class="hljs-literal">TRUE</span>*W | <span class="hljs-literal">TRUE</span>  | <span class="hljs-literal">TRUE</span>*W| <span class="hljs-literal">TRUE</span>  | <span class="hljs-literal">TRUE</span>  |
+---------+-------+-------+-------+-------+-------+-------+-------+
+
+<span class="hljs-literal">TRUE</span>*W - <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">return</span> <span class="hljs-title">TRUE</span>, <span class="hljs-title">but</span> <span class="hljs-title">same</span> <span class="hljs-title">time</span> <span class="hljs-title">emits</span> <span class="hljs-title">WARNING</span>.
+</span></code></pre>
+<hr>
+<h3 id="datetime-1"><code>DateTime</code></h3>
+<ul>
+<li><strong>Entorno de uso:</strong> Fechas y marcas de tiempo</li>
+<li><strong>¿Cuándo se instancia?:</strong> <code>new DateTime()</code></li>
+<li><strong>Utilidad:</strong> Manipulación avanzada de fechas</li>
+<li><strong>Atributos utilizados:</strong> <code>timezone</code>, <code>date</code></li>
+<li><strong>Métodos utilizados:</strong>
+<ul>
+<li><code>format()</code></li>
+<li><code>modify()</code></li>
+<li><code>add()</code></li>
+<li><code>diff()</code></li>
+</ul>
+</li>
+<li><strong>Ejemplo:</strong><pre><code class="language-php"><span class="hljs-variable">$fecha</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">DateTime</span>();
+<span class="hljs-keyword">echo</span> <span class="hljs-variable">$fecha</span>-&gt;<span class="hljs-title function_ invoke__">format</span>(<span class="hljs-string">&#x27;Y-m-d&#x27;</span>);
+</code></pre>
+</li>
+</ul>
+<hr>
+<h3 id="pdo"><code>PDO</code></h3>
+<ul>
+<li><strong>Entorno de uso:</strong> Conexión a bases de datos</li>
+<li><strong>¿Cuándo se instancia?:</strong> Al crear una nueva conexión con <code>new PDO($dsn, $usuario, $contraseña)</code></li>
+<li><strong>Utilidad:</strong> Abstrae el acceso a múltiples motores de bases de datos (MySQL, PostgreSQL, SQLite, etc.)</li>
+<li><strong>Atributos utilizados:</strong>
+<ul>
+<li>DSN (Data Source Name)</li>
+<li>Usuario</li>
+<li>Contraseña</li>
+</ul>
+</li>
+<li><strong>Métodos utilizados:</strong>
+<ul>
+<li><code>query($sql)</code> — Ejecuta una consulta SQL directamente</li>
+<li><code>prepare($sql)</code> — Prepara una consulta para ejecución segura</li>
+<li><code>exec($sql)</code> — Ejecuta una consulta sin retorno de resultados</li>
+<li><code>setAttribute($clave, $valor)</code> — Configura opciones de conexión</li>
+</ul>
+</li>
+<li><strong>Ejemplo:</strong><pre><code class="language-php"><span class="hljs-keyword">try</span> {
+    <span class="hljs-variable">$pdo</span> = <span class="hljs-keyword">new</span> <span class="hljs-title function_ invoke__">PDO</span>(<span class="hljs-string">&quot;mysql:host=localhost;dbname=tienda&quot;</span>, <span class="hljs-string">&quot;username&quot;</span>, <span class="hljs-string">&quot;paso&quot;</span>);
+    <span class="hljs-variable">$pdo</span>-&gt;<span class="hljs-title function_ invoke__">setAttribute</span>(PDO::<span class="hljs-variable constant_">ATTR_ERRMODE</span>, PDO::<span class="hljs-variable constant_">ERRMODE_EXCEPTION</span>);
+    <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;Conexión exitosa&quot;</span>;
+} <span class="hljs-keyword">catch</span> (PDOException <span class="hljs-variable">$e</span>) {
+    <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;Error de conexión: &quot;</span> . <span class="hljs-variable">$e</span>-&gt;<span class="hljs-title function_ invoke__">getMessage</span>();
+}
+</code></pre>
+</li>
+</ul>
+<hr>
+<h3 id="pdo-statement"><code>PDO Statement</code></h3>
+<ul>
+<li><strong>Entorno de uso:</strong> Ejecución de consultas preparadas en PDO</li>
+<li><strong>¿Cuándo se instancia?:</strong> Al llamar a <code>$pdo-&gt;prepare($sql)</code></li>
+<li><strong>Utilidad:</strong> Representa una sentencia preparada, permitiendo ejecutar consultas seguras con parámetros</li>
+<li><strong>Atributos utilizados:</strong>
+<ul>
+<li>Parámetros de consulta (bindParam, bindValue)</li>
+<li>Modo de obtención (setFetchMode)</li>
+</ul>
+</li>
+<li><strong>Métodos utilizados:</strong>
+(Los heredados de Exception)
+<ul>
+<li><code>execute([$params])</code> — Ejecuta la sentencia preparada</li>
+<li><code>fetch($modo)</code> — Obtiene una fila del resultado</li>
+<li><code>fetchAll($modo)</code> — Obtiene todas las filas</li>
+<li><code>bindParam($clave, $variable)</code> — Vincula un parámetro por referencia</li>
+<li><code>bindValue($clave, $valor)</code> — Vincula un valor directamente</li>
+<li><code>rowCount()</code> — Devuelve el número de filas afectadas</li>
+<li><code>closeCursor()</code> — Libera la conexión para nuevas consultas</li>
+</ul>
+</li>
+<li><strong>Ejemplo:</strong></li>
+</ul>
+<pre><code class="language-php"><span class="hljs-variable">$pdo</span> = <span class="hljs-keyword">new</span> <span class="hljs-title function_ invoke__">PDO</span>(<span class="hljs-string">&quot;mysql:host=localhost;dbname=tienda&quot;</span>, <span class="hljs-string">&quot;user&quot;</span>, <span class="hljs-string">&quot;pass&quot;</span>);
+
+<span class="hljs-variable">$sentencia</span> = <span class="hljs-variable">$pdo</span>-&gt;<span class="hljs-title function_ invoke__">prepare</span>(<span class="hljs-string">&quot;SELECT * FROM productos WHERE categoria = :cat&quot;</span>);
+<span class="hljs-variable">$sentencia</span>-&gt;<span class="hljs-title function_ invoke__">bindValue</span>(<span class="hljs-string">&quot;:cat&quot;</span>, <span class="hljs-string">&quot;tecnologia&quot;</span>);
+<span class="hljs-variable">$sentencia</span>-&gt;<span class="hljs-title function_ invoke__">execute</span>();
+
+<span class="hljs-variable">$resultados</span> = <span class="hljs-variable">$sentencia</span>-&gt;<span class="hljs-title function_ invoke__">fetchAll</span>(PDO::<span class="hljs-variable constant_">FETCH_ASSOC</span>);
+<span class="hljs-title function_ invoke__">print_r</span>(<span class="hljs-variable">$resultados</span>);
+
+</code></pre>
+<hr>
+<h3 id="pdo-exception"><code>PDO Exception</code></h3>
+<ul>
+<li><strong>Entorno de uso:</strong> Manejo de errores en operaciones con PDO</li>
+<li><strong>¿Cuándo se instancia?:</strong> Automáticamente cuando ocurre un error en PDO y el modo de error está configurado como PDO::ERRMODE_EXCEPTION</li>
+<li><strong>Utilidad:</strong> Representa las excepciones generadas por PDO, permitiendo capturar errores de conexión o consultas</li>
+<li><strong>Atributos utilizados:</strong>
+<ul>
+<li><code>message</code> — Mensaje descriptivo del error</li>
+<li><code>code</code> — Código numérico del error</li>
+<li><code>file</code> — Archivo donde ocurrió el error</li>
+<li><code>line</code> — Línea donde ocurrió el error</li>
+</ul>
+</li>
+<li><strong>Métodos utilizados:</strong>
+(Los heredados de Exception)
+<ul>
+<li><code>getMessage()</code> — Devuelve el mensaje del error</li>
+<li><code>getCode()</code> — Devuelve el código del error</li>
+<li><code>getTrace()</code> — Devuelve el seguimiento de pila</li>
+<li><code>getTraceAsString()</code> — Devuelve el seguimiento como cadena</li>
+</ul>
+</li>
+<li><strong>Ejemplo:</strong></li>
+</ul>
+<pre><code class="language-php"><span class="hljs-keyword">try</span> {
+      <span class="hljs-comment">/* Contenido */</span>
+  } <span class="hljs-keyword">catch</span> (PDOException <span class="hljs-variable">$e</span>) {
+      <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;Error de conexión: &quot;</span> . <span class="hljs-variable">$e</span>-&gt;<span class="hljs-title function_ invoke__">getMessage</span>();
+  }
+
+</code></pre>
+<hr>
+<h3 id="domdocument"><code>DOMDocument</code></h3>
+<ul>
+<li><strong>Entorno de uso:</strong> Manipulación y procesamiento de documentos XML y HTML</li>
+<li><strong>¿Cuándo se instancia?:</strong> Al crear un nuevo objeto con new DOMDocument()</li>
+<li><strong>Utilidad:</strong> Permite cargar, crear, modificar y guardar documentos XML/HTML mediante una API basada en nodos</li>
+<li><strong>Atributos utilizados:</strong>
+<ul>
+<li><code>preserveWhiteSpace</code> — Controla espacios en blanco</li>
+<li><code>formatOutput</code> — Formatea la salida para que sea legible</li>
+</ul>
+</li>
+<li><strong>Métodos utilizados:</strong>
+(Los heredados de Exception)
+<ul>
+<li><code>load($archivo)</code> — Carga un documento XML/HTML desde archivo</li>
+<li><code>loadXML($cadena)</code> — Carga un documento desde una cadena</li>
+<li><code>save($archivo)</code> — Guarda el documento en archivo</li>
+<li><code>saveXML()</code> — Devuelve el XML como cadena</li>
+<li><code>createElement($nombre, $valor)</code> — Crea un nuevo nodo</li>
+<li><code>appendChild($nodo)</code> — Agrega un nodo al documento</li>
+</ul>
+</li>
+<li><strong>Ejemplo:</strong></li>
+</ul>
+<pre><code class="language-php"><span class="hljs-variable">$doc</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">DOMDocument</span>();
+<span class="hljs-variable">$doc</span>-&gt;formatOutput = <span class="hljs-literal">true</span>;
+
+<span class="hljs-variable">$raiz</span> = <span class="hljs-variable">$doc</span>-&gt;<span class="hljs-title function_ invoke__">createElement</span>(<span class="hljs-string">&quot;tienda&quot;</span>);
+<span class="hljs-variable">$doc</span>-&gt;<span class="hljs-title function_ invoke__">appendChild</span>(<span class="hljs-variable">$raiz</span>);
+
+<span class="hljs-variable">$producto</span> = <span class="hljs-variable">$doc</span>-&gt;<span class="hljs-title function_ invoke__">createElement</span>(<span class="hljs-string">&quot;producto&quot;</span>, <span class="hljs-string">&quot;Ordenador&quot;</span>);
+<span class="hljs-variable">$raiz</span>-&gt;<span class="hljs-title function_ invoke__">appendChild</span>(<span class="hljs-variable">$producto</span>);
+
+<span class="hljs-keyword">echo</span> <span class="hljs-variable">$doc</span>-&gt;<span class="hljs-title function_ invoke__">saveXML</span>();
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Entorno de uso</th>
+<th>Clase</th>
+<th>¿Cuándo se instancia?</th>
+<th>Utilidad</th>
+<th>Atributos utilizados</th>
+<th>Métodos utilizados</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Al trabajar con fechas y marcas de tiempo</td>
+<td>DateTime</td>
+<td>new</td>
+<td>Manejo de fechas</td>
+<td>timezone, date</td>
+<td>format(), modify(), setDate(), setTime()</td>
+</tr>
+<tr>
+<td>Al trabajar con bases de datos MySQL del modo viejo</td>
+<td>MySQLi</td>
+<td>new</td>
+<td>Manejo de comunicaciones con una base de datos MySQL</td>
+<td>host, username, password, dbname</td>
+<td>query(), prepare(), connect(), close()</td>
+</tr>
+<tr>
+<td>Al trabajar con bases de datos modernamente</td>
+<td>PDO</td>
+<td>new</td>
+<td>Manejo de comunicaciones con una base de datos relacional</td>
+<td>DSN, usuario, contraseña</td>
+<td>query(), prepare(), exec(), setAttribute()</td>
+</tr>
+<tr>
+<td>Al recibir resultados de un query</td>
+<td>PDOStatement</td>
+<td>Al utilizar el método prepare() o query() en un objeto PDO</td>
+<td>Trabajar con el conjunto de resultados de un query</td>
+<td>Parámetros de consulta, modo de obtención</td>
+<td>fetchObject(), fetchAll(), execute(), bindValue()</td>
+</tr>
+<tr>
+<td>Al ocurrir un error del SGBD</td>
+<td>PDOException</td>
+<td>Al saltar una excepción de PDO en un try</td>
+<td>Controlar excepciones producidas en una base de datos relacional</td>
+<td>message, code</td>
+<td>getMessage(), getCode(), getTrace()</td>
+</tr>
+<tr>
+<td>Al trabajar con documentos almacenamiento de datos</td>
+<td>DOMDocument</td>
+<td>new</td>
+<td>Trabajar con documentos XML/HTML de forma cómoda y global</td>
+<td>preserveWhiteSpace, formatOutput</td>
+<td>createElement(), load(), save(), appendChild()</td>
+</tr>
+<tr>
+<td>Al definir elementos en un fichero</td>
+<td>DOMElement</td>
+<td>Al usar el método createElement() en un objeto DOMDocument</td>
+<td>Definir elementos DOM para estructurar un fichero de almacenamiento</td>
+<td>tagName, attributes</td>
+<td>appendChild(), setAttribute()</td>
+</tr>
+<tr>
+<td>Al usar el método appendChild() en un objeto DOMElement</td>
+<td>DOMNode</td>
+<td>Al usar el método appendChild() en un objeto DOMDocument o DOMElement</td>
+<td>Definir cualquier nodo dentro de un documento para estructurar el fichero</td>
+<td>nodeName, nodeValue, nodeType</td>
+<td>appendChild(), cloneNode(), removeChild()</td>
+</tr>
+<tr>
+<td>Al trabajar con ficheros XML</td>
+<td>SimpleXMLElement</td>
+<td>new</td>
+<td>Trabajar cómodamente con ficheros XML</td>
+<td>children, attributes</td>
+<td>asXML(), xpath(), children()</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+        <script async src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script>
+        
+    </body>
+    </html>

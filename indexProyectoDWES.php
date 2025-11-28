@@ -77,6 +77,9 @@
                     <a href="https://github.com/CrisMatVeg/CMVDWESProyectoDWES/blob/master/README.md">
                         <span>EstudioTema2</span>
                     </a>
+                    <a href="./doc/EstudioClasesYFuncionesPHP.html" target="_blank">
+                        <span>Estudio Clases y Funciones PHP</span>
+                    </a>
                 </span>
             </div>
             <div class="card">
