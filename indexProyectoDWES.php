@@ -12,7 +12,7 @@
             main {
                 flex: 1;
                 margin-top: 40px;
-                margin-bottom: 70px;
+                margin-bottom: 40px;
                 display: grid;
                 grid-template-columns: 1fr 1fr;
                 column-gap: 5px;
@@ -66,7 +66,10 @@
                 <span>
                     <span>UT1: DESARROLLO WEB EN ENTORNO SERVIDOR</span>
                     <a href="./doc/EstudioTema1.pdf" target="_blank">
-                        <span>EstudioTema1.pdf</span>
+                        <span>Estudio Tema 1</span>
+                    </a>
+                    <a href="./doc/EstudioTeoricoWordpress.html" target="_blank">
+                        <span>Estudio Teorico de Wordpress</span>
                     </a>
                 </span>
             </div>
@@ -75,7 +78,7 @@
                 <span>
                     <span>UT2: INSTALACIÓN, CONFIGURACIÓN Y DOCUMENTACIÓN DEL ENTORNO DE DESARROLLO Y DEL ENTORNO DE EXPLOTACIÓN</span>
                     <a href="https://github.com/CrisMatVeg/CMVDWESProyectoDWES/blob/master/README.md">
-                        <span>EstudioTema2</span>
+                        <span>Estudio Tema 2</span>
                     </a>
                     <a href="./doc/EstudioClasesYFuncionesPHP.html" target="_blank">
                         <span>Estudio Clases y Funciones PHP</span>
@@ -114,6 +117,7 @@
                 <div class="overlay"></div>
                 <span>
                     <span>UT6: APLICACIONES WEB MULTICAPA</span>
+                    <span>LoginLogoff</span>
                 </span>
             </div>
             <div class="card">
@@ -126,6 +130,7 @@
                 <div class="overlay"></div>
                 <span>
                     <span>UT8: DESARROLLO DE APLICACIONES WEB HÍBRIDAS</span>
+                    <span>Aplicación Final</span>
                 </span>
             </div>
         </main>
