@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Documentaci&oacute;n Te&oacute;rica de Laravel</title>
+        <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+        
+    </head>
+    <body class="vscode-body vscode-light">
+        <h1 id="documentación-teórica-de-laravel">Documentación Teórica de Laravel</h1>
+<h2 id="objetivo">Objetivo</h2>
+<p>Laravel es un framework de desarrollo web en PHP cuyo objetivo principal es facilitar la creación de aplicaciones web robustas, seguras y escalables, proporcionando herramientas modernas y un flujo de trabajo eficiente para desarrolladores. Permite estructurar proyectos siguiendo el patrón MVC (Modelo,Vista,Controlador), gestionar bases de datos, rutas, sesiones, autenticación y más, con una sintaxis limpia y expresiva.</p>
+<hr>
+<h2 id="introducción">Introducción</h2>
+<p>Laravel fue creado por Taylor Otwell en 2011 y se ha consolidado como uno de los frameworks PHP más populares. Su propósito es mejorar la experiencia del desarrollador, reduciendo el tiempo de desarrollo y ofreciendo una arquitectura consistente y mantenible. Laravel incluye un conjunto de herramientas integradas que permiten manejar tareas comunes de aplicaciones web como:</p>
+<ul>
+<li>Autenticación de usuarios</li>
+<li>Enrutamiento de URL</li>
+<li>Gestión de bases de datos con Eloquent ORM</li>
+<li>Colas y tareas en segundo plano</li>
+<li>Plantillas dinámicas con Blade</li>
+<li>Testing automatizado</li>
+</ul>
+<p>Su enfoque en la simplicidad, la legibilidad del código y la comunidad activa lo hace ideal tanto para proyectos pequeños como grandes.</p>
+<hr>
+<h2 id="competidores">Competidores</h2>
+<p>Laravel compite con otros frameworks y tecnologías para el desarrollo web en PHP y otros lenguajes:</p>
+<ul>
+<li><strong>Symfony (PHP):</strong> Framework robusto y modular, muy usado en proyectos corporativos.</li>
+<li><strong>CodeIgniter (PHP):</strong> Framework ligero y rápido, fácil de aprender.</li>
+<li><strong>Yii (PHP):</strong> Framework con enfoque en rendimiento y seguridad.</li>
+<li><strong>Django (Python):</strong> Framework completo para Python con arquitectura MVC.</li>
+<li><strong>Ruby on Rails (Ruby):</strong> Framework con filosofía similar a Laravel, muy expresivo y rápido para prototipos.</li>
+<li><strong>Express.js (Node.js):</strong> Framework minimalista para Node.js, con enfoque en APIs.</li>
+</ul>
+<p>Laravel se diferencia por combinar <strong>facilidad de uso</strong>, <strong>ecosistema completo</strong>, y una curva de aprendizaje relativamente amigable.</p>
+<hr>
+<h2 id="características">Características</h2>
+<p>Laravel ofrece un conjunto de características que lo hacen muy atractivo:</p>
+<ul>
+<li><strong>MVC y estructura organizada:</strong> Facilita la separación de lógica de negocio, presentación y rutas.
+<ul>
+<li>
+<p>Model (Modelo):
+Representa los datos y la lógica de negocio.
+Ejemplo: una clase User que accede a la tabla users en la base de datos.</p>
+</li>
+<li>
+<p>View (Vista):
+Presenta la información al usuario, normalmente HTML con el motor de plantillas Blade (.blade.php).</p>
+</li>
+<li>
+<p>Controller (Controlador):
+Maneja la lógica de la aplicación: recibe solicitudes HTTP, interactúa con los modelos y retorna vistas o respuestas JSON.</p>
+</li>
+<li>
+<p>Flujo típico de Laravel:
+El usuario hace una petición HTTP (por ejemplo GET /users)
+Apache envía la petición a Laravel (public/index.php)
+Laravel busca la ruta en routes/web.php
+La ruta llama a un Controlador
+El Controlador usa un Modelo para obtener datos de la base de datos
+Devuelve una Vista al navegador</p>
+</li>
+</ul>
+</li>
+<li><strong>Eloquent ORM:</strong> Simplifica el manejo de bases de datos con un modelo orientado a objetos.</li>
+<li><strong>Routing avanzado:</strong> Definición de rutas sencilla y flexible, con soporte para middleware.</li>
+<li><strong>Blade:</strong> Motor de plantillas ligero y eficiente para vistas.</li>
+<li><strong>Autenticación y autorización:</strong> Incluye scaffolding y control de roles.</li>
+<li><strong>Colas y jobs:</strong> Permite ejecutar tareas en segundo plano.</li>
+<li><strong>Testing integrado:</strong> PHPUnit listo para pruebas unitarias y funcionales.</li>
+<li><strong>Artisan CLI:</strong> Herramienta de línea de comandos para automatizar tareas (migraciones, generación de controladores, etc.).</li>
+<li><strong>Sistema de paquetes y ecosistema:</strong> Incluye Laravel Nova, Laravel Jetstream, Horizon, etc.</li>
+</ul>
+<hr>
+<h2 id="componentes-relación-y-utilidad">Componentes, relación y utilidad</h2>
+<table>
+<thead>
+<tr>
+<th>Componente</th>
+<th>Función</th>
+<th>Relación</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Routes</strong></td>
+<td>Define URLs y la lógica que deben ejecutar</td>
+<td>Interactúa con Controllers</td>
+</tr>
+<tr>
+<td><strong>Controllers</strong></td>
+<td>Gestiona la lógica de negocio y llamadas a modelos</td>
+<td>Recibe peticiones de Routes y devuelve Views o JSON</td>
+</tr>
+<tr>
+<td><strong>Models (Eloquent)</strong></td>
+<td>Representa tablas de la base de datos</td>
+<td>Controllers los usan para acceder a datos</td>
+</tr>
+<tr>
+<td><strong>Views (Blade)</strong></td>
+<td>Plantillas para presentar datos al usuario</td>
+<td>Reciben datos desde Controllers</td>
+</tr>
+<tr>
+<td><strong>Middleware</strong></td>
+<td>Filtra peticiones HTTP</td>
+<td>Se aplica sobre Routes para autenticación, permisos, etc.</td>
+</tr>
+<tr>
+<td><strong>Migrations &amp; Seeders</strong></td>
+<td>Gestiona la estructura y datos de la base</td>
+<td>Modelos dependen de las tablas creadas</td>
+</tr>
+<tr>
+<td><strong>Artisan</strong></td>
+<td>CLI para generar código y ejecutar tareas</td>
+<td>Facilita creación de Models, Controllers, Migraciones y más</td>
+</tr>
+<tr>
+<td><strong>Queues &amp; Jobs</strong></td>
+<td>Tareas en segundo plano</td>
+<td>Controllers o eventos pueden generar Jobs para ejecutar tareas asincrónicas</td>
+</tr>
+<tr>
+<td><strong>Services / Providers</strong></td>
+<td>Configuración y servicios de la aplicación</td>
+<td>Inicializa componentes y paquetes externos</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Todos estos componentes interactúan entre sí siguiendo la filosofía <strong>MVC</strong>, creando una arquitectura mantenible y escalable.</p>
+</blockquote>
+<hr>
+<h2 id="webgrafía-fuentes-tutoriales-y-cursos-recomendados">Webgrafía, fuentes, tutoriales y cursos recomendados</h2>
+<ul>
+<li><strong>Documentación oficial:</strong> <a href="https://laravel.com/docs">https://laravel.com/docs</a></li>
+<li><strong>Laracasts:</strong> <a href="https://laracasts.com">https://laracasts.com</a> — Video tutoriales muy completos.</li>
+<li><strong>Tutoriales PHP y Laravel:</strong>
+<ul>
+<li><a href="https://www.digitalocean.com/community/tutorials">https://www.digitalocean.com/community/tutorials</a></li>
+<li><a href="https://laravel-news.com/">https://laravel-news.com/</a></li>
+</ul>
+</li>
+<li><strong>Cursos recomendados:</strong></li>
+<li><strong>GitHub oficial:</strong> <a href="https://github.com/laravel/laravel">https://github.com/laravel/laravel</a></li>
+</ul>
+<hr>
+<h2 id="conclusión">Conclusión</h2>
+<p>Laravel es un framework moderno que <strong>agiliza el desarrollo web en PHP</strong>, proporcionando una arquitectura limpia, herramientas integradas y un ecosistema sólido. Su enfoque en el patrón <strong>MVC</strong> permite separar responsabilidades y mantener código organizado, mientras que sus características avanzadas como <strong>Eloquent ORM, Blade, Artisan y colas</strong> facilitan la creación de aplicaciones escalables y mantenibles.</p>
+<p>Gracias a su <strong>documentación extensa</strong>, comunidad activa y compatibilidad con modernas prácticas de desarrollo, Laravel se mantiene como una de las mejores opciones para desarrollar aplicaciones web profesionales en PHP.</p>
+<hr>
+
+        
+        
+    </body>
+    </html>

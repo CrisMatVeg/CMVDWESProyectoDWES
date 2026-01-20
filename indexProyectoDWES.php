@@ -68,8 +68,8 @@
                     <a href="./doc/EstudioTema1.pdf" target="_blank">
                         <span>Estudio Tema 1</span>
                     </a>
-                    <a href="./doc/EstudioTeoricoWordpress.html" target="_blank">
-                        <span>Estudio Teorico de Wordpress</span>
+                    <a href="./doc/LaravelTeoria.html" target="_blank">
+                        <span>Estudio Teorico de Laravel</span>
                     </a>
                 </span>
             </div>
@@ -82,6 +82,9 @@
                     </a>
                     <a href="./doc/EstudioClasesYFuncionesPHP.html" target="_blank">
                         <span>Estudio Clases y Funciones PHP</span>
+                    </a>
+                    <a href="./doc/LaravelPractica-EntornoDesarrollo.html" target="_blank">
+                        <span>Estudio Práctico de Laravel - Entorno de Desarrollo</span>
                     </a>
                 </span>
             </div>
@@ -117,7 +120,9 @@
                 <div class="overlay"></div>
                 <span>
                     <span>UT6: APLICACIONES WEB MULTICAPA</span>
-                    <span>LoginLogoff</span>
+                    <a href="../CMVDWESLoginLogoff/indexLoginLogoff.php">
+                        <span>LoginLogoff</span>
+                    </a>
                 </span>
             </div>
             <div class="card">
@@ -130,7 +135,9 @@
                 <div class="overlay"></div>
                 <span>
                     <span>UT8: DESARROLLO DE APLICACIONES WEB HÍBRIDAS</span>
-                    <span>Aplicación Final</span>
+                    <a href="../CMVDProyectoFinalLaravel/public">
+                    <span>Proyecto Final Laravel</span>
+                    </a>
                 </span>
             </div>
         </main>

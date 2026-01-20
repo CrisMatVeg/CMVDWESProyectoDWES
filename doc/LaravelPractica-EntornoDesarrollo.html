@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Documentaci&oacute;n Pr&aacute;ctica de Laravel - Construcci&oacute;n del entorno de Desarrollo</title>
+        <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+        
+    </head>
+    <body class="vscode-body vscode-light">
+        <h1 id="documentación-práctica-de-laravel---construcción-del-entorno-de-desarrollo">Documentación Práctica de Laravel - Construcción del entorno de Desarrollo</h1>
+<h2 id="resumen">Resumen</h2>
+<p>Laravel es un framework PHP moderno que facilita el desarrollo de aplicaciones web siguiendo el patrón <strong>MVC (Model-View-Controller)</strong>. Proporciona herramientas integradas para enrutamiento, controladores, modelos, vistas, migraciones, autenticación, colas, cache y más. Su sintaxis limpia y su ecosistema completo permiten desarrollar aplicaciones robustas y mantenibles de manera rápida.</p>
+<p>En esta guía práctica se explica cómo instalar Laravel en Ubuntu con Apache, PHP 8.3 y MariaDB y como dejar un entorno de desarrollo listo para hacer una app.</p>
+<hr>
+<h2 id="requisitos-previos">Requisitos previos</h2>
+<p>Para que Laravel funcione correctamente en tu entorno:</p>
+<ul>
+<li><strong>Sistema operativo:</strong> Ubuntu 20.04/22.04 o superior</li>
+<li><strong>Servidor web:</strong> Apache 2.4</li>
+<li><strong>PHP:</strong> 8.3 con extensiones:
+<ul>
+<li>php8.3-cli</li>
+<li>php8.3-fpm</li>
+<li>php8.3-mbstring</li>
+<li>php8.3-mysql</li>
+<li>php8.3-xml</li>
+<li>php8.3-zip</li>
+<li>php8.3-curl</li>
+<li>php8.3-bcmath</li>
+</ul>
+</li>
+<li><strong>Base de datos:</strong> MariaDB 10.x o MySQL</li>
+<li><strong>Composer</strong> (gestor de dependencias PHP)</li>
+<li><strong>Permisos de archivos</strong> adecuados para Apache (<code>www-data</code>) en <code>storage</code> y <code>bootstrap/cache</code></li>
+</ul>
+<hr>
+<h2 id="instalación">Instalación</h2>
+<h3 id="1-actualizar-el-sistema-e-instalar-dependencias">1. Actualizar el sistema e instalar dependencias</h3>
+<pre><code class="language-bash">sudo apt update &amp;&amp; sudo apt upgrade -y
+sudo apt install apache2 mariadb-server mariadb-client php8.3 php8.3-cli php8.3-fpm php8.3-mbstring php8.3-mysql php8.3-xml php8.3-zip php8.3-curl php8.3-bcmath unzip curl composer -y
+sudo systemctl <span class="hljs-built_in">enable</span> apache2 mariadb php8.3-fpm
+sudo systemctl start apache2 mariadb php8.3-fpm
+</code></pre>
+<h3 id="2-crear-base-de-datos-y-usuario-en-mariadb">2. Crear base de datos y usuario en MariaDB</h3>
+<pre><code class="language-sql"><span class="hljs-keyword">CREATE</span> DATABASE miapplaravel <span class="hljs-type">CHARACTER</span> <span class="hljs-keyword">SET</span> utf8mb4 <span class="hljs-keyword">COLLATE</span> utf8mb4_unicode_ci;
+<span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">USER</span> <span class="hljs-string">&#x27;miapplaraveluser&#x27;</span>@<span class="hljs-string">&#x27;localhost&#x27;</span> IDENTIFIED <span class="hljs-keyword">BY</span> <span class="hljs-string">&#x27;paso&#x27;</span>;
+<span class="hljs-keyword">GRANT</span> <span class="hljs-keyword">ALL</span> PRIVILEGES <span class="hljs-keyword">ON</span> miapplaravel.<span class="hljs-operator">*</span> <span class="hljs-keyword">TO</span> <span class="hljs-string">&#x27;miapplaraveluser&#x27;</span>@<span class="hljs-string">&#x27;localhost&#x27;</span>;
+FLUSH PRIVILEGES;
+EXIT;
+</code></pre>
+<h3 id="3-crear-el-proyecto-laravel">3. Crear el proyecto Laravel</h3>
+<pre><code class="language-bash"><span class="hljs-built_in">cd</span> /var/www
+sudo composer create-project laravel/laravel miapplaravel
+</code></pre>
+<h3 id="4-ajustar-permisos">4. Ajustar permisos</h3>
+<pre><code class="language-bash">sudo <span class="hljs-built_in">chown</span> -R www-data:www-data /var/www/miapplaravel
+sudo <span class="hljs-built_in">chmod</span> -R 755 /var/www/miapplaravel
+sudo <span class="hljs-built_in">chmod</span> -R 775 /var/www/miapplaravel/storage /var/www/miapplaravel/bootstrap/cache
+</code></pre>
+<h3 id="5-configurar-en-env">5. Configurar en .env</h3>
+<pre><code class="language-bash">APP_NAME=MiAppLaravel
+APP_ENV=<span class="hljs-built_in">local</span>
+APP_KEY=
+APP_DEBUG=<span class="hljs-literal">true</span>
+APP_URL=http://<span class="hljs-comment">#IP_DEL_SERVIDOR</span>
+
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=miapplaravel
+DB_USERNAME=miapplaraveluser
+DB_PASSWORD=tu_contraseña
+
+CACHE_DRIVER=file
+SESSION_DRIVER=file
+QUEUE_CONNECTION=<span class="hljs-built_in">sync</span>
+</code></pre>
+<h3 id="6-configurar-apache-y-sitio">6. Configurar Apache y sitio</h3>
+<p>Archivo <code>/etc/apache2/sites-available/miapplaravel.conf</code>:</p>
+<pre><code class="language-apache"><span class="hljs-section">&lt;VirtualHost *<span class="hljs-number">:80</span>&gt;</span>
+    <span class="hljs-attribute">ServerName</span> miapplaravel.local
+    <span class="hljs-attribute">DocumentRoot</span> /var/www/miapplaravel/public
+
+    <span class="hljs-section">&lt;Directory /var/www/miapplaravel/public&gt;</span>
+        <span class="hljs-attribute">AllowOverride</span> <span class="hljs-literal">All</span>
+        <span class="hljs-attribute">Require</span> <span class="hljs-literal">all</span> granted
+    <span class="hljs-section">&lt;/Directory&gt;</span>
+
+    <span class="hljs-section">&lt;FilesMatch \.php$&gt;</span>
+        <span class="hljs-attribute">SetHandler</span> <span class="hljs-string">&quot;proxy:unix:/run/php/php8.3-fpm.sock|fcgi://localhost/&quot;</span>
+    <span class="hljs-section">&lt;/FilesMatch&gt;</span>
+
+    <span class="hljs-attribute">ErrorLog</span> <span class="hljs-variable">${APACHE_LOG_DIR}</span>/miapplaravel_error.log
+    <span class="hljs-attribute">CustomLog</span> <span class="hljs-variable">${APACHE_LOG_DIR}</span>/miapplaravel_access.log combined
+<span class="hljs-section">&lt;/VirtualHost&gt;</span>
+</code></pre>
+<p>Activar el sitio y módulos:</p>
+<pre><code class="language-bash">sudo a2ensite miapplaravel
+sudo a2enmod rewrite proxy_fcgi setenvif
+sudo a2enconf php8.3-fpm
+sudo systemctl restart apache2
+sudo systemctl restart php8.3-fpm
+</code></pre>
+<h3 id="7-ejecutar-migraciones">7. Ejecutar migraciones</h3>
+<pre><code class="language-bash">php artisan migrate
+php artisan config:clear
+php artisan cache:clear
+php artisan route:clear
+php artisan view:clear
+php artisan config:cache
+</code></pre>
+<h3 id="8-instalar-dependencias-de-composer-y-generar-key">8. Instalar dependencias de composer y generar key</h3>
+<pre><code class="language-bash"><span class="hljs-comment"># En /var/www/miapplaravel</span>
+[sudo] composer install
+sudo php artisan key:generate
+</code></pre>
+<h2 id="estructura-de-directorios-y-ficheros">Estructura de directorios y ficheros</h2>
+<pre><code class="language-bash">miapplaravel/
+├── app/                  <span class="hljs-comment"># Lógica de negocio (Controllers, Models, Providers)</span>
+├── bootstrap/            <span class="hljs-comment"># Inicialización de Laravel y cache</span>
+├── config/               <span class="hljs-comment"># Archivos de configuración</span>
+├── database/             <span class="hljs-comment"># Migraciones, seeders y factories</span>
+├── public/               <span class="hljs-comment"># DocumentRoot de Apache, index.php</span>
+├── resources/            <span class="hljs-comment"># Vistas (Blade), assets y traducciones</span>
+├── routes/               <span class="hljs-comment"># Definición de rutas (web.php, api.php)</span>
+├── storage/              <span class="hljs-comment"># Logs, cache, sesiones, archivos subidos</span>
+├── tests/                <span class="hljs-comment"># Pruebas unitarias y funcionales</span>
+├── vendor/               <span class="hljs-comment"># Dependencias Composer</span>
+├── artisan               <span class="hljs-comment"># CLI de Laravel</span>
+├── composer.json         <span class="hljs-comment"># Dependencias y autoload</span>
+├── .<span class="hljs-built_in">env</span>                  <span class="hljs-comment"># Configuración de entorno</span>
+</code></pre>
+<h2 id="configuración-y-herramientas-de-laravel">Configuración y herramientas de Laravel</h2>
+<ul>
+<li>
+<p>Artisan CLI: php artisan</p>
+<ul>
+<li>Generar controladores: <code>php artisan make:controller NombreController</code></li>
+<li>Generar modelos: <code>php artisan make:model NombreModel</code></li>
+<li>Migraciones: <code>php artisan make:migration crear_tabla_ejemplo</code></li>
+<li>Limpiar caches: <code>php artisan config:clear, php artisan cache:clear</code></li>
+</ul>
+</li>
+<li>
+<p>Eloquent ORM: Simplifica consultas a la base de datos.</p>
+<pre><code class="language-php"><span class="hljs-variable">$usuarios</span> = <span class="hljs-title class_">User</span>::<span class="hljs-title function_ invoke__">all</span>();
+</code></pre>
+</li>
+<li>
+<p>Blade: Motor de plantillas para vistas.</p>
+<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>{{ $titulo }}<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+</code></pre>
+</li>
+<li>
+<p>Middleware: Filtra peticiones, por ejemplo autenticación.</p>
+</li>
+<li>
+<p>Queues / Jobs: Ejecuta tareas en segundo plano.</p>
+</li>
+</ul>
+<p>Con todo esto Laravel ya estaría listo para ponernos a hacer una app (WIP...)</p>
+
+        <script async src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script>
+        
+    </body>
+    </html>
