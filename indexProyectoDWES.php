@@ -135,7 +135,7 @@
                 <div class="overlay"></div>
                 <span>
                     <span>UT8: DESARROLLO DE APLICACIONES WEB HÍBRIDAS</span>
-                    <a href="../CMVDProyectoFinalLaravel/public">
+                    <a href="https://cmvproyectofinallaravel.cristianmatveg.ieslossauces.es/">
                     <span>Proyecto Final Laravel</span>
                     </a>
                 </span>
