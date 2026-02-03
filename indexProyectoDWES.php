@@ -50,6 +50,9 @@
                 margin: 10px;
                 width: 80%;
             }
+            .card span{
+                font-size: 0.9rem;
+            }
         </style>
     </head>
 
@@ -85,6 +88,9 @@
                     </a>
                     <a href="./doc/LaravelPractica-EntornoDesarrollo.html" target="_blank">
                         <span>Estudio Práctico de Laravel - Entorno de Desarrollo</span>
+                    </a>
+                    <a href="./doc/LaravelPracticaDesarrolloBasico.html" target="_blank">
+                        <span>Estudio Práctico de Laravel - Desarrollo sencillo</span>
                     </a>
                 </span>
             </div>

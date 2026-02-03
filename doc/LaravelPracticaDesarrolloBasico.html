@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Documentaci&oacute;n&colon; App Laravel con Login&comma; Registro y Protecci&oacute;n de Rutas</title>
+        <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+        
+    </head>
+    <body class="vscode-body vscode-light">
+        <h1 id="documentación-app-laravel-con-login-registro-y-protección-de-rutas">Documentación: App Laravel con Login, Registro y Protección de Rutas</h1>
+<p>Esta documentación resume <strong>los pasos clave y conceptos importantes</strong> para crear una aplicación Laravel sencilla como la desarrollada:</p>
+<ul>
+<li>Servida en <strong>Apache</strong></li>
+<li>Con <strong>login y registro propios</strong></li>
+<li>Con <strong>protección de rutas</strong></li>
+<li>Con <strong>datos dinámicos del usuario autenticado</strong></li>
+<li>Usando <strong>Blade + Vite</strong></li>
+</ul>
+<hr>
+<h2 id="1-estructura-base-del-proyecto">1. Estructura base del proyecto</h2>
+<ul>
+<li>Laravel 12</li>
+<li>PHP 8.3</li>
+<li>Servidor Apache</li>
+<li>DocumentRoot apuntando a <code>/public</code></li>
+</ul>
+<pre><code class="language-apache"><span class="hljs-attribute">DocumentRoot</span> /var/www/miapplaravel/public
+
+<span class="hljs-section">&lt;Directory /var/www/miapplaravel/public&gt;</span>
+    <span class="hljs-attribute">AllowOverride</span> <span class="hljs-literal">All</span>
+    <span class="hljs-attribute">Require</span> <span class="hljs-literal">all</span> granted
+<span class="hljs-section">&lt;/Directory&gt;</span>
+</code></pre>
+<h2 id="2-rutas-routeswebphp">2. Rutas (routes/web.php)</h2>
+<p>Separación clara entre:</p>
+<ul>
+<li>Rutas públicas (login, registro)</li>
+<li>Rutas protegidas (auth)</li>
+</ul>
+<pre><code class="language-php"><span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Http</span>\<span class="hljs-title">Controllers</span>\<span class="hljs-title">PageController</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Http</span>\<span class="hljs-title">Controllers</span>\<span class="hljs-title">AuthController</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Support</span>\<span class="hljs-title">Facades</span>\<span class="hljs-title">Route</span>;
+
+<span class="hljs-comment">// Públicas</span>
+<span class="hljs-title class_">Route</span>::<span class="hljs-title function_ invoke__">get</span>(<span class="hljs-string">&#x27;/&#x27;</span>, [<span class="hljs-title class_">PageController</span>::<span class="hljs-variable language_">class</span>, <span class="hljs-string">&#x27;index&#x27;</span>])-&gt;<span class="hljs-title function_ invoke__">name</span>(<span class="hljs-string">&#x27;home&#x27;</span>);
+<span class="hljs-title class_">Route</span>::<span class="hljs-title function_ invoke__">get</span>(<span class="hljs-string">&#x27;/login&#x27;</span>, [<span class="hljs-title class_">AuthController</span>::<span class="hljs-variable language_">class</span>, <span class="hljs-string">&#x27;showLogin&#x27;</span>])-&gt;<span class="hljs-title function_ invoke__">name</span>(<span class="hljs-string">&#x27;login&#x27;</span>);
+<span class="hljs-title class_">Route</span>::<span class="hljs-title function_ invoke__">post</span>(<span class="hljs-string">&#x27;/login&#x27;</span>, [<span class="hljs-title class_">AuthController</span>::<span class="hljs-variable language_">class</span>, <span class="hljs-string">&#x27;login&#x27;</span>]);
+<span class="hljs-title class_">Route</span>::<span class="hljs-title function_ invoke__">get</span>(<span class="hljs-string">&#x27;/registro&#x27;</span>, [<span class="hljs-title class_">AuthController</span>::<span class="hljs-variable language_">class</span>, <span class="hljs-string">&#x27;showRegistro&#x27;</span>])-&gt;<span class="hljs-title function_ invoke__">name</span>(<span class="hljs-string">&#x27;registro&#x27;</span>);
+<span class="hljs-title class_">Route</span>::<span class="hljs-title function_ invoke__">post</span>(<span class="hljs-string">&#x27;/registro&#x27;</span>, [<span class="hljs-title class_">AuthController</span>::<span class="hljs-variable language_">class</span>, <span class="hljs-string">&#x27;registro&#x27;</span>]);
+
+<span class="hljs-comment">// Logout (POST obligatorio)</span>
+<span class="hljs-title class_">Route</span>::<span class="hljs-title function_ invoke__">post</span>(<span class="hljs-string">&#x27;/logout&#x27;</span>, [<span class="hljs-title class_">AuthController</span>::<span class="hljs-variable language_">class</span>, <span class="hljs-string">&#x27;logout&#x27;</span>])-&gt;<span class="hljs-title function_ invoke__">name</span>(<span class="hljs-string">&#x27;logout&#x27;</span>);
+
+<span class="hljs-comment">// Protegidas</span>
+<span class="hljs-title class_">Route</span>::<span class="hljs-title function_ invoke__">get</span>(<span class="hljs-string">&#x27;/proyectos&#x27;</span>, [<span class="hljs-title class_">PageController</span>::<span class="hljs-variable language_">class</span>, <span class="hljs-string">&#x27;proyectos&#x27;</span>])-&gt;<span class="hljs-title function_ invoke__">name</span>(<span class="hljs-string">&#x27;proyectos&#x27;</span>)-&gt;<span class="hljs-title function_ invoke__">middleware</span>(<span class="hljs-string">&#x27;auth&#x27;</span>);
+<span class="hljs-title class_">Route</span>::<span class="hljs-title function_ invoke__">get</span>(<span class="hljs-string">&#x27;/proyecto&#x27;</span>, [<span class="hljs-title class_">PageController</span>::<span class="hljs-variable language_">class</span>, <span class="hljs-string">&#x27;proyecto&#x27;</span>])-&gt;<span class="hljs-title function_ invoke__">name</span>(<span class="hljs-string">&#x27;proyecto&#x27;</span>)-&gt;<span class="hljs-title function_ invoke__">middleware</span>(<span class="hljs-string">&#x27;auth&#x27;</span>);
+</code></pre>
+<h2 id="3-migración-de-usuarios">3. Migración de usuarios</h2>
+<p>Tabla personalizada usuarios.</p>
+<pre><code class="language-php"><span class="hljs-title class_">Schema</span>::<span class="hljs-title function_ invoke__">create</span>(<span class="hljs-string">&#x27;usuarios&#x27;</span>, function (Blueprint <span class="hljs-variable">$table</span>) {
+    <span class="hljs-variable">$table</span>-&gt;<span class="hljs-title function_ invoke__">id</span>();
+    <span class="hljs-variable">$table</span>-&gt;<span class="hljs-keyword">string</span>(<span class="hljs-string">&#x27;username&#x27;</span>)-&gt;<span class="hljs-title function_ invoke__">unique</span>();
+    <span class="hljs-variable">$table</span>-&gt;<span class="hljs-keyword">string</span>(<span class="hljs-string">&#x27;description&#x27;</span>);
+    <span class="hljs-variable">$table</span>-&gt;<span class="hljs-keyword">string</span>(<span class="hljs-string">&#x27;email&#x27;</span>)-&gt;<span class="hljs-title function_ invoke__">unique</span>();
+    <span class="hljs-variable">$table</span>-&gt;<span class="hljs-keyword">string</span>(<span class="hljs-string">&#x27;password&#x27;</span>);
+    <span class="hljs-variable">$table</span>-&gt;<span class="hljs-title function_ invoke__">timestamps</span>();
+});
+</code></pre>
+<p>Ejecutar solo esta migración en el servidor:</p>
+<pre><code class="language-php">php artisan migrate --path=database/migrations/xxxx_xx_xx_create_usuarios_table.php
+</code></pre>
+<h2 id="4-modelo-usuario">4. Modelo Usuario</h2>
+<p>Archivo: <code>app/Models/Usuario.php</code></p>
+<pre><code class="language-php"><span class="hljs-keyword">namespace</span> <span class="hljs-title class_">App</span>\<span class="hljs-title class_">Models</span>;
+
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Foundation</span>\<span class="hljs-title">Auth</span>\<span class="hljs-title">User</span> <span class="hljs-keyword">as</span> <span class="hljs-title">Authenticatable</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Usuario</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Authenticatable</span>
+</span>{
+    <span class="hljs-keyword">protected</span> <span class="hljs-variable">$table</span> = <span class="hljs-string">&#x27;usuarios&#x27;</span>;
+
+    <span class="hljs-keyword">protected</span> <span class="hljs-variable">$fillable</span> = [
+        <span class="hljs-string">&#x27;username&#x27;</span>,
+        <span class="hljs-string">&#x27;description&#x27;</span>,
+        <span class="hljs-string">&#x27;email&#x27;</span>,
+        <span class="hljs-string">&#x27;password&#x27;</span>
+    ];
+
+    <span class="hljs-keyword">protected</span> <span class="hljs-variable">$hidden</span> = [
+        <span class="hljs-string">&#x27;password&#x27;</span>,
+    ];
+}
+</code></pre>
+<h2 id="5configurar-auth-para-usar-usuarios">5.Configurar Auth para usar usuarios</h2>
+<p>Archivo: <code>config/auth.php</code></p>
+<pre><code class="language-php"><span class="hljs-string">&#x27;providers&#x27;</span> =&gt; [
+    <span class="hljs-string">&#x27;users&#x27;</span> =&gt; [
+        <span class="hljs-string">&#x27;driver&#x27;</span> =&gt; <span class="hljs-string">&#x27;eloquent&#x27;</span>,
+        <span class="hljs-string">&#x27;model&#x27;</span> =&gt; <span class="hljs-title class_">App\Models\Usuario</span>::<span class="hljs-variable language_">class</span>,
+    ],
+],
+</code></pre>
+<h2 id="6-controlador-de-autenticación">6. Controlador de autenticación</h2>
+<p>Archivo: <code>app/Http/Controllers/AuthController.php</code></p>
+<pre><code class="language-php">Login
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Support</span>\<span class="hljs-title">Facades</span>\<span class="hljs-title">Auth</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Http</span>\<span class="hljs-title">Request</span>;
+
+<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">login</span>(<span class="hljs-params">Request <span class="hljs-variable">$request</span></span>)
+</span>{
+    <span class="hljs-variable">$credentials</span> = <span class="hljs-variable">$request</span>-&gt;<span class="hljs-title function_ invoke__">validate</span>([
+        <span class="hljs-string">&#x27;email&#x27;</span> =&gt; <span class="hljs-string">&#x27;required|email&#x27;</span>,
+        <span class="hljs-string">&#x27;password&#x27;</span> =&gt; <span class="hljs-string">&#x27;required&#x27;</span>,
+    ]);
+
+    <span class="hljs-keyword">if</span> (<span class="hljs-title class_">Auth</span>::<span class="hljs-title function_ invoke__">attempt</span>(<span class="hljs-variable">$credentials</span>)) {
+        <span class="hljs-variable">$request</span>-&gt;<span class="hljs-title function_ invoke__">session</span>()-&gt;<span class="hljs-title function_ invoke__">regenerate</span>();
+        <span class="hljs-keyword">return</span> <span class="hljs-title function_ invoke__">redirect</span>()-&gt;<span class="hljs-title function_ invoke__">route</span>(<span class="hljs-string">&#x27;proyectos&#x27;</span>);
+    }
+
+    <span class="hljs-keyword">return</span> <span class="hljs-title function_ invoke__">back</span>()-&gt;<span class="hljs-title function_ invoke__">withErrors</span>([
+        <span class="hljs-string">&#x27;email&#x27;</span> =&gt; <span class="hljs-string">&#x27;Credenciales incorrectas&#x27;</span>,
+    ]);
+}
+</code></pre>
+<h3 id="61-registro">6.1. Registro</h3>
+<pre><code class="language-php"><span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Models</span>\<span class="hljs-title">Usuario</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Support</span>\<span class="hljs-title">Facades</span>\<span class="hljs-title">Hash</span>;
+
+<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">registro</span>(<span class="hljs-params">Request <span class="hljs-variable">$request</span></span>)
+</span>{
+    <span class="hljs-variable">$data</span> = <span class="hljs-variable">$request</span>-&gt;<span class="hljs-title function_ invoke__">validate</span>([
+        <span class="hljs-string">&#x27;username&#x27;</span> =&gt; <span class="hljs-string">&#x27;required|unique:usuarios&#x27;</span>,
+        <span class="hljs-string">&#x27;description&#x27;</span> =&gt; <span class="hljs-string">&#x27;required&#x27;</span>,
+        <span class="hljs-string">&#x27;email&#x27;</span> =&gt; <span class="hljs-string">&#x27;required|email|unique:usuarios&#x27;</span>,
+        <span class="hljs-string">&#x27;password&#x27;</span> =&gt; <span class="hljs-string">&#x27;required|min:6&#x27;</span>,
+    ]);
+
+    <span class="hljs-title class_">Usuario</span>::<span class="hljs-title function_ invoke__">create</span>([
+        <span class="hljs-string">&#x27;username&#x27;</span> =&gt; <span class="hljs-variable">$data</span>[<span class="hljs-string">&#x27;username&#x27;</span>],
+        <span class="hljs-string">&#x27;description&#x27;</span> =&gt; <span class="hljs-variable">$data</span>[<span class="hljs-string">&#x27;description&#x27;</span>],
+        <span class="hljs-string">&#x27;email&#x27;</span> =&gt; <span class="hljs-variable">$data</span>[<span class="hljs-string">&#x27;email&#x27;</span>],
+        <span class="hljs-string">&#x27;password&#x27;</span> =&gt; <span class="hljs-title class_">Hash</span>::<span class="hljs-title function_ invoke__">make</span>(<span class="hljs-variable">$data</span>[<span class="hljs-string">&#x27;password&#x27;</span>]),
+    ]);
+
+    <span class="hljs-keyword">return</span> <span class="hljs-title function_ invoke__">redirect</span>()-&gt;<span class="hljs-title function_ invoke__">route</span>(<span class="hljs-string">&#x27;login&#x27;</span>);
+}
+</code></pre>
+<h3 id="62-logout-post">6.2. Logout (POST)</h3>
+<pre><code class="language-php"><span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Support</span>\<span class="hljs-title">Facades</span>\<span class="hljs-title">Auth</span>;
+
+<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">logout</span>(<span class="hljs-params">Request <span class="hljs-variable">$request</span></span>)
+</span>{
+    <span class="hljs-title class_">Auth</span>::<span class="hljs-title function_ invoke__">logout</span>();
+    <span class="hljs-variable">$request</span>-&gt;<span class="hljs-title function_ invoke__">session</span>()-&gt;<span class="hljs-title function_ invoke__">invalidate</span>();
+    <span class="hljs-variable">$request</span>-&gt;<span class="hljs-title function_ invoke__">session</span>()-&gt;<span class="hljs-title function_ invoke__">regenerateToken</span>();
+
+    <span class="hljs-keyword">return</span> <span class="hljs-title function_ invoke__">redirect</span>()-&gt;<span class="hljs-title function_ invoke__">route</span>(<span class="hljs-string">&#x27;login&#x27;</span>);
+}
+</code></pre>
+<h2 id="7-formularios-en-blade">7. Formularios en Blade</h2>
+<p>Login (<code>login.blade.php</code>)</p>
+<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">form</span> <span class="hljs-attr">method</span>=<span class="hljs-string">&quot;POST&quot;</span> <span class="hljs-attr">action</span>=<span class="hljs-string">&quot;{{ route(&#x27;login&#x27;) }}&quot;</span>&gt;</span>
+    @csrf
+    <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;email&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;email&quot;</span> <span class="hljs-attr">required</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;password&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;password&quot;</span> <span class="hljs-attr">required</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;submit&quot;</span>&gt;</span>Entrar<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span>
+</code></pre>
+<p>Logout (IMPORTANTE: POST)</p>
+<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">form</span> <span class="hljs-attr">method</span>=<span class="hljs-string">&quot;POST&quot;</span> <span class="hljs-attr">action</span>=<span class="hljs-string">&quot;{{ route(&#x27;logout&#x27;) }}&quot;</span>&gt;</span>
+    @csrf
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;submit&quot;</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">i</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;fa-solid fa-arrow-right-from-bracket&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">i</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span>
+</code></pre>
+<h2 id="8-acceder-al-usuario-autenticado">8. Acceder al usuario autenticado</h2>
+<p>En el controlador</p>
+<pre><code class="language-php"><span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Support</span>\<span class="hljs-title">Facades</span>\<span class="hljs-title">Auth</span>;
+
+<span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">proyectos</span>(<span class="hljs-params"></span>)
+    </span>{
+        <span class="hljs-variable">$usuario</span> = <span class="hljs-title function_ invoke__">auth</span>()-&gt;<span class="hljs-title function_ invoke__">user</span>();
+        <span class="hljs-keyword">return</span> <span class="hljs-title function_ invoke__">view</span>(<span class="hljs-string">&#x27;proyectos&#x27;</span>,[<span class="hljs-string">&#x27;usuario&#x27;</span>=&gt;<span class="hljs-variable">$usuario</span>]); <span class="hljs-comment">// muestra proyectos.blade.php</span>
+    }
+</code></pre>
+<p>En la vista (<code>proyectos.blade.php</code>)</p>
+<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Bienvenido, {{ $usuario-&gt;description }}<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+</code></pre>
+<h2 id="9-protección-de-rutas">9. Protección de rutas</h2>
+<p>Laravel redirige automáticamente a <code>/login</code> si:</p>
+<p>La ruta tiene middleware auth</p>
+<p>No hay sesión iniciada</p>
+<pre><code class="language-php"><span class="hljs-title class_">Route</span>::<span class="hljs-title function_ invoke__">get</span>(<span class="hljs-string">&#x27;/proyectos&#x27;</span>, [<span class="hljs-title class_">PageController</span>::<span class="hljs-variable language_">class</span>, <span class="hljs-string">&#x27;proyectos&#x27;</span>])-&gt;<span class="hljs-title function_ invoke__">name</span>(<span class="hljs-string">&#x27;proyectos&#x27;</span>)-&gt;<span class="hljs-title function_ invoke__">middleware</span>(<span class="hljs-string">&#x27;auth&#x27;</span>);
+<span class="hljs-title class_">Route</span>::<span class="hljs-title function_ invoke__">get</span>(<span class="hljs-string">&#x27;/proyecto&#x27;</span>, [<span class="hljs-title class_">PageController</span>::<span class="hljs-variable language_">class</span>, <span class="hljs-string">&#x27;proyecto&#x27;</span>])-&gt;<span class="hljs-title function_ invoke__">name</span>(<span class="hljs-string">&#x27;proyecto&#x27;</span>)-&gt;<span class="hljs-title function_ invoke__">middleware</span>(<span class="hljs-string">&#x27;auth&#x27;</span>);
+</code></pre>
+<h2 id="10-vite-y-css">10. Vite y CSS</h2>
+<p>CSS fuente → <code>resources/css/app.css</code></p>
+<p>Se compila a <code>public/build</code></p>
+<p>En vistas:</p>
+<p><code>@vite('resources/css/app.css')</code></p>
+<p>Comandos:</p>
+<pre><code class="language-php">npm install
+npm run build
+</code></pre>
+<h2 id="11-limpieza-de-cache-muy-importante">11. Limpieza de cache (muy importante)</h2>
+<pre><code class="language-php">php artisan view:clear
+php artisan route:clear
+php artisan config:clear
+php artisan cache:clear
+</code></pre>
+<h1 id="flujo-final-de-la-app">Flujo final de la app</h1>
+<ol>
+<li>Usuario entra en /login\</li>
+<li>Envía formulario (POST)\</li>
+<li>Laravel valida credenciales\</li>
+<li>Se crea sesión\</li>
+<li>Redirección a /proyectos\</li>
+<li>Rutas protegidas por auth\</li>
+<li>Datos del usuario disponibles en vistas\</li>
+<li>Logout mediante POST invalida sesión</li>
+</ol>
+
+        <script async src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script>
+        
+    </body>
+    </html>
